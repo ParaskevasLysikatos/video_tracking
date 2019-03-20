@@ -4,7 +4,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <li class="active">  <a  class="nav-link" style="color: #f8f9fa; font-weight: bold" href="VideoDisplay">Home</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <li>   <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="Uchart">User's charts</a></li>
+            <li>   <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="ChooseVideoforUser">User's charts</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <li> <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="UsersSelect">Compare 2 user charts</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

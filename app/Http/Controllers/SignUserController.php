@@ -71,7 +71,8 @@ class SignUserController extends BaseController
     public function DisplaySelectUser(Request $req)
     {
         $username= DB::table('users')->select('username')->get();
-        return view('UsersSelect',['username'=>$username]);
+        $video=DB::table('upload_videos')->select('upload_name')->get();
+        return view('UsersSelect',['username'=>$username,'video'=>$video]);
     }
 
 
@@ -146,4 +147,12 @@ class SignUserController extends BaseController
         $Video= DB::table('upload_videos')->select('upload_name')->get();
         return view('VideoDisplay',['username'=>$username,'Video'=>$Video]);
     }
+
+    public function ChooseVideoforUser()
+    {
+        $username = session('Uname');
+        $video=DB::table('upload_videos')->select('upload_name')->get();
+        return view('ChooseVideoforUser',['video'=>$video,'username'=>$username]);
+    }
+
 }

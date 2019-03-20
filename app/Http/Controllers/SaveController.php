@@ -70,8 +70,9 @@ class SaveController extends Controller
         $firstVid=DB::table('upload_videos')->select('*')->first();
         $howmany = DB::table('info_videos')->select(DB::raw('DISTINCT video_name,COUNT(*) as count,video_event,video_duration'))->groupBy('video_event','video_name','video_duration')->where('video_event', '=', 'video second played')->orderByDesc('count')->get();
         $howmanyU = DB::table('info_videos')->select(DB::raw('DISTINCT video_user, video_name,COUNT(*) as count,video_event,COUNT(video_name) as countU,video_duration'))->groupBy('video_event','video_user','video_name','video_duration')->where('video_event', '=', 'video second played')->orderByDesc('count')->get();
+        $video=DB::table('upload_videos')->select('upload_name')->get();
 
-        return view('SortedVideos',['howmany'=>$howmany,'howmanyU'=>$howmanyU]);
+        return view('SortedVideos',['howmany'=>$howmany,'howmanyU'=>$howmanyU,'video'=>$video]);
     }
 
     public function SortedUsers()
@@ -83,7 +84,6 @@ class SaveController extends Controller
         // $howmanyM=floor($howmany/60);
         //$howmanyS=$howmany%60;
 
-
         return view('SortedUsers',['howmany'=>$howmany,'howmanyV'=>$howmanyV,'video'=>$video]);
     }
 
@@ -92,45 +92,49 @@ class SaveController extends Controller
     {
         request()->validate([
             'username1' => 'required|different:username2',
-            'username2' => 'required|different:username1'
+            'username2' => 'required|different:username1',
+            'videoName' =>   'required'
         ]);
         $username1 = $req->input('username1');
         $username2 = $req->input('username2');
+        $video=$req->input('videoName');
+        $video=substr($video,0,-4);
+        $videoRange2=DB::table('info_videos')->select('video_duration')->where('video_name','=',$video)->first();
+        $videoRange=$videoRange2->video_duration;
         //session(['Uname1'=>$username1]);
         //session(['Uname2'=>$username2]);
 
+        $playA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video play')->where('video_name',$video)->get()->count();
+        $playB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video play')->where('video_name',$video)->get()->count();
 
-        $playA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video play')->get()->count();
-        $playB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video play')->get()->count();
+        $pausedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video paused')->where('video_name',$video)->get()->count();
+        $pausedB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video paused')->where('video_name',$video)->get()->count();
 
-        $pausedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video paused')->get()->count();
-        $pausedB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video paused')->get()->count();
-
-        $stopA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video stop')->get()->count();
-        $stopB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video stop')->get()->count();
-
-
-        $restartA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video restart')->get()->count();
-        $restartB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video restart')->get()->count();
-
-        $endedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video ended')->get()->count();
-        $endedB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video ended')->get()->count();
-
-        $seekedfA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video seeking forward')->get()->count();
-        $seekedfB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video seeking forward')->get()->count();
-
-        $seekedbA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video seeking backward')->get()->count();
-        $seekedbB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video seeking backward')->get()->count();
+        $stopA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video stop')->where('video_name',$video)->get()->count();
+        $stopB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video stop')->where('video_name',$video)->get()->count();
 
 
-        $playedsecA=DB::table('info_videos')->select(DB::raw('DISTINCT video_current_timeStart,COUNT(*) as count,video_duration, video_user'))->groupBy('video_current_timeStart','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username1)->get();
-        $playedsecB=DB::table('info_videos')->select(DB::raw('DISTINCT video_current_timeStart,COUNT(*) as count,video_duration, video_user'))->groupBy('video_current_timeStart','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username2)->get();
+        $restartA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video restart')->where('video_name',$video)->get()->count();
+        $restartB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video restart')->where('video_name',$video)->get()->count();
 
-        $playedsecA1=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username1)->get();
-        $playedsecB1=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username2)->get();
+        $endedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video ended')->where('video_name',$video)->get()->count();
+        $endedB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video ended')->where('video_name',$video)->get()->count();
 
-        $playedsecA5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress5','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username1)->get();
-        $playedsecB5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress5','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username2)->get();
+        $seekedfA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video seeking forward')->where('video_name',$video)->get()->count();
+        $seekedfB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video seeking forward')->where('video_name',$video)->get()->count();
+
+        $seekedbA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username1)->where('video_event','=','video seeking backward')->where('video_name',$video)->get()->count();
+        $seekedbB=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=',$username2)->where('video_event','=','video seeking backward')->where('video_name',$video)->get()->count();
+
+
+        $playedsecA=DB::table('info_videos')->select(DB::raw('DISTINCT video_current_timeStart,COUNT(*) as count,video_duration, video_user'))->groupBy('video_current_timeStart','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username1)->where('video_name',$video)->get();
+        $playedsecB=DB::table('info_videos')->select(DB::raw('DISTINCT video_current_timeStart,COUNT(*) as count,video_duration, video_user'))->groupBy('video_current_timeStart','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username2)->where('video_name',$video)->get();
+
+        $playedsecA1=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username1)->where('video_name',$video)->get();
+        $playedsecB1=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username2)->where('video_name',$video)->get();
+
+        $playedsecA5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress5','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username1)->where('video_name',$video)->get();
+        $playedsecB5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress5','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username2)->where('video_name',$video)->get();
 
 
         $lava = new Lavacharts;
@@ -146,8 +150,6 @@ class SaveController extends Controller
             ->addRow(['Seeked forward',  $seekedfA,$seekedfB])
             ->addRow(['Seeked backward',  $seekedbA,$seekedbB]);
 
-
-
         \Lava::ColumnChart('Events', $video_data,[
             'title' => 'Events times happened',
             'legend' => [
@@ -162,10 +164,6 @@ class SaveController extends Controller
         ]);
 
         //------------------other chart
-        $play2=DB::table('info_videos')->select('video_current_timeStart','video_progress','video_duration','video_name')->where('video_event','=','video second played')->get();
-
-
-
 
         $video_data2  = \Lava::DataTable();
         $video_data2->addNumberColumn('Progress %');
@@ -175,8 +173,6 @@ class SaveController extends Controller
             foreach($playedsecA1 as $p){
             $video_data2->addRow([$p->video_progress,$p->count]);
             }
-
-
 
         \Lava::ScatterChart('Progress of '.$username1.' on Played Seconds', $video_data2,[
             'hAxis' => [
@@ -197,14 +193,9 @@ class SaveController extends Controller
         $video_data3->addNumberColumn('Progress %');
         $video_data3->addNumberColumn('Played Second '.$username2);
 
-
-
-
         foreach($playedsecB1 as $p){
             $video_data3->addRow([$p->video_progress,$p->count]);
         }
-
-
 
         \Lava::ScatterChart('Progress of '.$username2.' on Played Seconds', $video_data3,[
             'hAxis' => [
@@ -221,32 +212,40 @@ class SaveController extends Controller
             ]
         ]);
 
-        return view('CUchart',['play2'=>$play2,'playedsecA'=>$playedsecA,'playedsecB'=>$playedsecB,'username1'=>$username1,'username2'=>$username2,'playedsecA1'=>$playedsecA1,'playedsecB1'=>$playedsecB1,'playedsecA5'=>$playedsecA5,'playedsecB5'=>$playedsecB5]);
+        return view('CUchart',['videoRange'=>$videoRange,'video'=>$video,'playedsecA'=>$playedsecA,'playedsecB'=>$playedsecB,'username1'=>$username1,'username2'=>$username2,'playedsecA1'=>$playedsecA1,'playedsecB1'=>$playedsecB1,'playedsecA5'=>$playedsecA5,'playedsecB5'=>$playedsecB5]);
     }
 
-    public function chartUser()
+    public function chartUser(Request $req)
     {
+        request()->validate([
+            'videoName' =>   'required'
+        ]);
+        $video=$req->input('videoName');
+        $video=substr($video,0,-4);
+        $videoRange2=DB::table('info_videos')->select('video_duration')->where('video_name','=',$video)->first();
+        $videoRange=$videoRange2->video_duration;
+
         $username = session('Uname');
 
-        $playA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video play')->get()->count();
+        $playA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video play')->where('video_name',$video)->get()->count();
 
-        $pausedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video paused')->get()->count();
+        $pausedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video paused')->where('video_name',$video)->get()->count();
 
-        $stopA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video stop')->get()->count();
+        $stopA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video stop')->where('video_name',$video)->get()->count();
 
-        $restartA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video restart')->get()->count();
+        $restartA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video restart')->where('video_name',$video)->get()->count();
 
-        $endedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video ended')->get()->count();
+        $endedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video ended')->where('video_name',$video)->get()->count();
 
-        $seekedfA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video seeking forward')->get()->count();
+        $seekedfA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video seeking forward')->where('video_name',$video)->get()->count();
 
-        $seekedbA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video seeking backward')->get()->count();
+        $seekedbA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video seeking backward')->where('video_name',$video)->get()->count();
 
-        $playedsecA=DB::table('info_videos')->select(DB::raw('DISTINCT video_current_timeStart,COUNT(*) as count,video_duration,video_user'))->groupBy('video_current_timeStart','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=', $username)->get();
+        $playedsecA=DB::table('info_videos')->select(DB::raw('DISTINCT video_current_timeStart,COUNT(*) as count,video_duration,video_user'))->groupBy('video_current_timeStart','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
 
-        $playedsecA1=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress,COUNT(*) as count,video_duration,video_user'))->groupBy('video_progress','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=', $username)->get();
+        $playedsecA1=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress,COUNT(*) as count,video_duration,video_user'))->groupBy('video_progress','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
 
-        $playedsecA5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration,video_user'))->groupBy('video_duration','video_user','video_progress5')->where('video_event','=','video second played')->where('video_user','=', $username)->get();
+        $playedsecA5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration,video_user'))->groupBy('video_duration','video_user','video_progress5')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
 
 
         $lava = new Lavacharts;
@@ -277,10 +276,6 @@ class SaveController extends Controller
         ]);
 
         //------------------other chart
-        $play2=DB::table('info_videos')->select('video_current_timeStart','video_progress','video_duration','video_name')->where('video_event','=','video second played')->get();
-
-
-
 
         $video_data2  = \Lava::DataTable();
         $video_data2->addNumberColumn('Progress %');
@@ -290,7 +285,6 @@ class SaveController extends Controller
         foreach($playedsecA1 as $p){
             $video_data2->addRow([$p->video_progress,$p->count]);
         }
-
 
 
         \Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
@@ -308,9 +302,7 @@ class SaveController extends Controller
             ]
         ]);
 
-
-
-        return view('Uchart',['play2'=>$play2,'playedsecA'=>$playedsecA,'username'=>$username,'playedsecA5'=>$playedsecA5,'playedsecA1'=>$playedsecA1]);
+        return view('Uchart',['videoRange'=>$videoRange,'video'=>$video,'playedsecA'=>$playedsecA,'username'=>$username,'playedsecA5'=>$playedsecA5,'playedsecA1'=>$playedsecA1]);
     }
 
     public function VideosHeatmap(Request $req)
@@ -369,10 +361,6 @@ class SaveController extends Controller
         ]);
 
         //------------------other chart
-        $play2=DB::table('info_videos')->select('video_current_timeStart','video_progress','video_duration','video_name')->where('video_event','=','video second played')->get();
-
-
-
 
         $video_data2  = \Lava::DataTable();
         $video_data2->addNumberColumn('Progress %');
@@ -382,12 +370,11 @@ class SaveController extends Controller
         foreach($playedsecA1 as $p){
             $video_data2->addRow([$p->video_progress,$p->count]);
         }
-
-
+        
 
         \Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
             'hAxis' => [
-                'title' => 'Progress %'
+                'title' => 'Progress %',
             ],
             'vAxis' => [
                 'title' => 'Times (count)'
@@ -398,10 +385,11 @@ class SaveController extends Controller
             'legend' => [
                 'position' => 'none'
             ]
+
         ]);
 
 
-        return view('VideosHeatmap',['play2'=>$play2,'playedsecA'=>$playedsecA,'username'=>$username,'playedsecA1'=>$playedsecA1,'playedsecA5'=>$playedsecA5,'rangeVid'=>$rangeVid]);
+        return view('VideosHeatmap',['playedsecA'=>$playedsecA,'username'=>$username,'playedsecA1'=>$playedsecA1,'playedsecA5'=>$playedsecA5,'rangeVid'=>$rangeVid]);
     }
 
     public function UserSession(Request $req)

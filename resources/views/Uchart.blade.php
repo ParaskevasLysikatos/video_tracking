@@ -3,7 +3,7 @@
 <head>
 
     @include('/scripts')
-    <title>Signed in user charts</title>
+    <title>User on video charts</title>
     <style>
         .grid-container {
             display: grid;
@@ -16,7 +16,7 @@
 <body>
 @include('/navbar')
 <div class="grid-container"style=" margin-top: 1%;">
-    <center> <h1 style="font-size: 30px; " > Signed in user charts: {{ $username}} </h1></center>
+    <center> <h1 style="font-size: 30px; " >User charts: {{ $username}} on video: {{$video}} </h1></center>
 </div>
 
 <div id="1" style="height: 70%; width:100%; margin-left: 1%; "><?=  Lava::render('ColumnChart', 'Events','1') ?></div>
@@ -63,6 +63,7 @@
         width:2200,
 
         xaxis: {
+            range:[0,{{$videoRange}}],
             ticks: "inside",
             side: 'top',
             autosize: false
@@ -151,6 +152,7 @@
         width:2200,
 
         xaxis: {
+            range:[0,{{$videoRange}}],
             ticks: "inside",
             side: 'top',
             autosize: false
@@ -237,6 +239,7 @@
         annotations: [],
         height:300,
         xaxis: {
+            range:[0,{{$videoRange}}],
             ticks: '',
             side: 'top',
             autosize: false

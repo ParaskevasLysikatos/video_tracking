@@ -11,8 +11,6 @@
 |
 */
 
-
-
 /*  post routes*/
 Route::post('/ManageVideos', 'UploadfileController@upload');
 
@@ -34,6 +32,8 @@ Route::post('/EditName', 'SignUserController@EditName')->name('EditName');
 
 Route::post('/UsersSelect', 'SaveController@UserSelection')->name('UserSelect');
 
+Route::post('/ChooseVideoforUser', 'SaveController@chartUser')->name('VideoforUser');
+
 Route::post('/VideosHeatmap', 'SaveController@VideosHeatmap')->name('VideosHeatmap');
 
 Route::post('/SaveVideo', 'UploadfileController@SaveVideo');
@@ -52,18 +52,19 @@ Route::view('/InspectVideo', 'InspectVideo');
 
 Route::view('/welcome', 'welcome');
 
+
 /* get routes */
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/ChooseVideoforUser', 'SignUserController@ChooseVideoforUser');
 
 Route::get('/ManageVideos', 'UploadfileController@displayManageVideos');
 
 Route::get('/VideoDisplay', 'SignUserController@Display');
 
 Route::get('/EditName', 'SignUserController@DisplayEditName');
-
-Route::get('/Uchart', 'SaveController@chartUser');
 
 Route::get('/SortedUsers', 'SaveController@SortedUsers');
 

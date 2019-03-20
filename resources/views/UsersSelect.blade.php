@@ -43,6 +43,18 @@
                 </select></center>
         </div>
             <br>
+                <center>
+                <div class="form-group col-md-2">
+                    <label style="font-size: 20px;">Select a video:</label>
+                    <div class="form-group">
+                        <select class="form-control" placeholder="Select video" name="videoName" >
+                            <option></option>
+                            @foreach($video as $v)
+                                <option>{{$v->upload_name}}</option>@endforeach
+                        </select>
+                    </div>
+                </div>
+                </center>
             <center><button type="submit" class="btn btn-primary" style="margin: 15px; font-size:22px;">Compare</button></center>
             </form>
         </div>

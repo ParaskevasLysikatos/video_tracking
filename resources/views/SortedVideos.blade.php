@@ -96,6 +96,32 @@
         </center>
     </div>
     <br>
+
+    <center>
+        <h4>Inspect video form</h4>
+        <form method="post" action="{{route('InspectVideo')}}">
+            @csrf
+            <div class="form-group col-md-2">
+                <label style="font-size: 20px;">Select a video:</label>
+                <div class="form-group">
+                    <select class="form-control" placeholder="Select video" name="videoName" >
+                        <option></option>
+                        @foreach($video as $v)
+                            <option>{{$v->upload_name}}</option>@endforeach
+                    </select>
+                </div>
+                <label style="font-size: 20px;">Type the second:</label>
+                <div class="form-group">
+                    <input type="text" class="form-control"  placeholder="Enter second" name="second" >
+                </div>
+            </div>
+            <br>
+            <button style="font-size: 20px;" type="submit" class="btn btn-primary">See video start</button>
+        </form>
+    </center>
+
 </div>
+<br>
+@include('errors')
 </body>
 </html>
