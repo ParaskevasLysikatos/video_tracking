@@ -96,7 +96,7 @@
 
     <center>
         <h4>Inspect video form</h4>
-        <form method="post" action="{{route('InspectVideo')}}">
+        <form method="post" action="{{route('InspectVideoS')}}">
             @csrf
             <div class="form-group col-md-2">
                 <label style="font-size: 20px;">Select a video:</label>

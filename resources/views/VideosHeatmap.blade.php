@@ -27,6 +27,17 @@
 <br>
 <h4 style="alignment: center; margin-left: 200px; ">Heatmap with bar, x->seconds, y->Video_name, z->times</h4>
 <div id="myDiv1" style=" margin-left: 5%; "><!-- Plotly chart will be drawn inside this DIV --></div>
+
+<center>
+    <form method="post" action="{{route('InspectVideo1')}}">
+        @csrf
+            <input placeholder="Select video" name="videoName" id="y1" hidden >
+                <input class="col-sm-1" type="text"   name="second" id="x1"  >
+        <br>
+        <button style="font-size: 12px; margin: 10px" type="submit" class="btn btn-primary">See video start</button>
+    </form>
+</center>
+
 <script>
     <!-- JAVASCRIPT CODE GOES HERE -->
     var xValues = [@foreach($playedsecA as $s){{$s->video_current_timeStart}},@endforeach];
@@ -109,14 +120,37 @@
         }
 
     }
-
     Plotly.newPlot('myDiv1', data, layout, {showSendToCloud: true});
+    var myPlot = document.getElementById('myDiv1');
+    myPlot.on('plotly_click', function(data){
+        var xsec, zsec,ysec;
+        for(var i=0; i < data.points.length; i++){
+            xsec = data.points[i].x;
+            zsec = data.points[i].z;
+            ysec = data.points[i].y;
+        };
+        console.log(xsec+' '+zsec+' '+ysec);
+        document.getElementById("x1").value = xsec;
+        document.getElementById("y1").value = ysec;
+    });
 </script>
+
 
 
 <br>
 <h4 style="alignment: center; margin-left: 200px; ">Heatmap with bar, x->progress, y->Video_name, z->times</h4>
 <div id="myDiv2" style=" margin-left: 5%; "><!-- Plotly chart will be drawn inside this DIV --></div>
+
+<center>
+    <form method="post" action="{{route('InspectVideo2')}}">
+        @method('delete')
+        <input placeholder="Select video" name="videoName" id="y2" hidden >
+        <input class="col-sm-1" type="text"   name="second" id="x2"  >
+        <br>
+        <button style="font-size: 12px; margin: 10px" type="submit" class="btn btn-primary">See video start</button>
+    </form>
+</center>
+
 <script>
     <!-- JAVASCRIPT CODE GOES HERE -->
     var xValues = [@foreach($playedsecA1 as $s){{$s->video_progress}},@endforeach];
@@ -197,20 +231,42 @@
             };
             layout.annotations.push(result);
         }
-
     }
-
     Plotly.newPlot('myDiv2', data, layout, {showSendToCloud: true});
+
+    var myPlot = document.getElementById('myDiv2');
+    myPlot.on('plotly_click', function(data){
+        var xsec, zsec,ysec;
+        for(var i=0; i < data.points.length; i++){
+            xsec = data.points[i].x;
+            zsec = data.points[i].z;
+            ysec = data.points[i].y;
+        };
+        console.log(xsec+' '+zsec+' '+ysec);
+        document.getElementById("x2").value = xsec;
+        document.getElementById("y2").value = ysec;
+    });
 </script>
 
 <br>
 <h4 style="alignment: center; margin-left: 200px; ">Heatmap with bar, x->progress on 5%, y->user_name, z->times</h4>
 <div id="myDiv3" style=" width:100%; margin-left: 5%; "><!-- Plotly chart will be drawn inside this DIV --></div>
+
+<center>
+    <form method="post" action="{{route('InspectVideo3')}}">
+        @method('get')
+        <input placeholder="Select video" name="videoName" id="y3" hidden >
+        <input class="col-sm-1" type="text"   name="second" id="x3"  >
+        <br>
+        <button style="font-size: 12px; margin: 10px" type="submit" class="btn btn-primary">See video start</button>
+    </form>
+</center>
+
 <script>
     <!-- JAVASCRIPT CODE GOES HERE -->
     var xValues = [@foreach($playedsecA5 as $s){{$s->video_progress5}},@endforeach];
 
-    var yValues = ['VideoName->{{$username}}'];
+    var yValues = ['{{$username}}'];
 
     var zValues = [
         [@foreach($playedsecA5 as $s){{$s->count}},@endforeach]
@@ -280,10 +336,20 @@
             layout.annotations.push(result);
         }
 
-
     }
-
     Plotly.newPlot('myDiv3', data, layout, {showSendToCloud: true});
+    var myPlot = document.getElementById('myDiv3');
+    myPlot.on('plotly_click', function(data){
+        var xsec, zsec,ysec;
+        for(var i=0; i < data.points.length; i++){
+            xsec = data.points[i].x;
+            zsec = data.points[i].z;
+            ysec = data.points[i].y;
+        };
+        console.log(xsec+' '+zsec+' '+ysec);
+        document.getElementById("x3").value = xsec;
+        document.getElementById("y3").value = ysec;
+    });
 </script>
 
 </body>

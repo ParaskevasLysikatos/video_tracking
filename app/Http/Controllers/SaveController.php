@@ -370,7 +370,7 @@ class SaveController extends Controller
         foreach($playedsecA1 as $p){
             $video_data2->addRow([$p->video_progress,$p->count]);
         }
-        
+
 
         \Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
             'hAxis' => [

@@ -110,6 +110,36 @@ class SignUserController extends BaseController
         }
     }
 
+    public function SecondsInspect(Request $req)
+{
+    $videoName = $req->input('videoName');
+    $secGiven = $req->input('second');
+    $videoName=$videoName.".mp4";
+    return view('InspectVideo',['videoName'=>$videoName,'secGiven'=>$secGiven]);
+}
+
+    public function SecondsInspect2(Request $req)
+    {
+        $videoName = $req->input('videoName');
+        $secGiven2 = $req->input('second');
+        $sec=DB::table('info_videos')->select('video_duration')->where('video_name',$videoName)->first();
+        $secC=$sec->video_duration;
+        $videoName=$videoName.".mp4";
+        $secGiven=$secC/100*$secGiven2 ;
+        return view('InspectVideo',['videoName'=>$videoName,'secGiven'=>$secGiven]);
+    }
+
+
+    public function SecondsInspect3(Request $req)
+    {
+        $videoName = $req->input('videoName');
+        $secGiven2 = $req->input('second');
+        $sec=DB::table('info_videos')->select('video_duration')->where('video_name',$videoName)->first();
+        $secC=$sec->video_duration;
+        $videoName=$videoName.".mp4";
+        $secGiven=$secC/100*$secGiven2 ;
+        return view('InspectVideo',['videoName'=>$videoName,'secGiven'=>$secGiven]);
+    }
 
     public function DeleteUser(Request $req)
     {

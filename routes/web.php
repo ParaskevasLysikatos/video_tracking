@@ -22,9 +22,17 @@ Route::post('/video_save3','SaveController@store3');
 
 Route::post('/video_session','SaveController@UserSession');
 
+
 Route::post('/SignIn','SignUserController@SignInUser')->name('SignInUser');
 
-Route::post('/SortedUsers','SignUserController@SeeInspectVideo')->name('InspectVideo');
+Route::delete('/VideoHeatmap','SignUserController@SecondsInspect2')->name('InspectVideo2');
+
+Route::get('/VideoHeatmap','SignUserController@SecondsInspect3')->name('InspectVideo3');
+
+
+Route::post('/VideoHeatmap','SignUserController@SecondsInspect')->name('InspectVideo1');
+
+Route::post('/SortedUsers','SignUserController@SeeInspectVideo')->name('InspectVideoS');
 
 Route::post('/Register','SignUserController@RegisterUser')->name('RegisterUser');
 
@@ -40,6 +48,7 @@ Route::post('/SaveVideo', 'UploadfileController@SaveVideo');
 
 Route::post('/DownVideo', 'UploadfileController@DownVideo');
 
+
 /* delete routes */
 Route::delete('/DeleteUser','SignUserController@DeleteUser')->name('DeleteUser');
 
@@ -48,15 +57,16 @@ Route::delete('/ManageVideos','UploadfileController@DelVideo')->name('DeleteVide
 /*  view routes */
 Route::view('/Register', 'Register');
 
-Route::view('/InspectVideo', 'InspectVideo');
-
 Route::view('/welcome', 'welcome');
+
+
 
 
 /* get routes */
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/ChooseVideoforUser', 'SignUserController@ChooseVideoforUser');
 
