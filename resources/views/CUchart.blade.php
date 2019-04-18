@@ -268,7 +268,7 @@
         width:2200,
 
         xaxis: {
-            range:[0,{{$videoRange}}],
+            range:[-1,{{$videoRange}}],
             ticks: "inside",
             side: 'top',
             autosize: false
@@ -355,7 +355,7 @@
         annotations: [],
         height:300,
         xaxis: {
-            range:[0,{{$videoRange}}],
+            range:[-1,{{$videoRange}}],
             ticks: '',
             side: 'top',
             autosize: false

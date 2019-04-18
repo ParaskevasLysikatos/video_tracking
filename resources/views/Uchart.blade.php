@@ -239,7 +239,7 @@
         annotations: [],
         height:300,
         xaxis: {
-            range:[0,{{$videoRange}}],
+            range:[-1,{{$videoRange}}],
             ticks: '',
             side: 'top',
             autosize: false

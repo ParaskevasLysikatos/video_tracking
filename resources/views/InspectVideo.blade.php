@@ -18,14 +18,14 @@
 </head>
 <body>
 @include('/navbar')
-
+<center>
 <div class="grid-container">
-    <h1 style="font-size: 30px;   margin:1%;  text-align: center; ">Video inspection </h1>
+    <h1 style="font-size: 30px;   margin:0%;  text-align: center; ">Video inspection </h1>
     <p id="sec"  hidden>{{$secGiven}}</p>
     <button id="btn" hidden></button>
 </div>
-<center>
-<div class="col-xl-10" style="margin-left: 3%;">
+
+<div class="col-xl-10" style="margin-left: 0%;">
         <div>
             <h5 style="alignment: left;  display:flow ;">Video: {{$videoName}}</h5>
 

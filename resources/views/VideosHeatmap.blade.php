@@ -297,7 +297,7 @@
         annotations: [],
         height:300,
         xaxis: {
-            range:[0,{{$rangeVid->video_duration}}],
+            range:[-1,{{$rangeVid->video_duration}}],
             ticks: '',
             side: 'top',
             autosize: false
