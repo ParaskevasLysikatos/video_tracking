@@ -24,20 +24,29 @@
                 <p id="nm"  hidden>{{$username}}</p>
                 <button id="btn" hidden></button>
                 </div>
-
-                <div class="col-xl-10" style="margin-left: 3%;">
+    <br>
+    <br>
+                <center>
+                <div class="col-xl-10" style="margin-right: 95%;">
                     @foreach($Video as $v)
                     <div>
-                         <h5 style="alignment: left; margin-left: 15%; display:flow ;">Video: {{$v->upload_name}}</h5>
-                <video name="video" id="{{$v->upload_name}}" style="alignment: left; display:flow;  margin: 1%;"   width="40%" height="50%" controls src="storage/videos/{{$v->upload_name}}" type="video/mp4" preload="metadata">
+                         <h5 style="alignment: left; display:flow; padding-right: auto">Video: {{$v->upload_name}}</h5>
+                <video name="video" id="{{$v->upload_name}}" style="alignment: left; display:flow;  margin: 1%;"   width="60%" height="30%" controls src="storage/videos/{{$v->upload_name}}" type="video/mp4" preload="metadata">
                     Your browser does not support the video tag.
                 </video>
                 </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     @endforeach
             </div>
+                </center>
+
     <script src="js/main.js"></script>
     <br>
     <br>
     <br>
+    @include('/footer')
     </body>
 </html>

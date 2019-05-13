@@ -36,5 +36,6 @@
 <a href="welcome"><button type="button" class="btn btn-success" style="width:90px; margin-top:2%; font-size:20px;">Back</button></a></center>
 <br>
 @include('errors')
+@include('/footer')
 </body>
 </html>

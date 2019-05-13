@@ -123,5 +123,6 @@
 </div>
 <br>
 @include('errors')
+@include('/footer')
 </body>
 </html>

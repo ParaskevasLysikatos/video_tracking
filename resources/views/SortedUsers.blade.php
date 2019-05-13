@@ -37,7 +37,7 @@
         </center>
     </div>
     <br><center>
-    <div id="1" style="height: 30%; width:60%; margin-left: 1%; "></div></center>
+    <div id="1" style="height: 30%; width:50%; margin-left: 1%; "></div></center>
     <script>
         var xValue = [@foreach($howmany as $u)'{{$u->video_user}}',@endforeach];
 
@@ -120,5 +120,6 @@
 </div>
 <br>
 @include('errors')
+@include('/footer')
 </body>
 </html>

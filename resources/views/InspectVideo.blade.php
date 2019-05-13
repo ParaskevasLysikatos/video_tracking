@@ -29,7 +29,7 @@
         <div>
             <h5 style="alignment: left;  display:flow ;">Video: {{$videoName}}</h5>
 
-            <video name="video" id="video" style="alignment: left; display:flow;  margin: 1%;"   width="60%" height="50%" controls src="storage/videos/{{$videoName}}" type="video/mp4" preload="auto">
+            <video name="video" id="video" style="alignment: left; display:flow;  margin: 1%;"   width="60%" height="30%" controls src="storage/videos/{{$videoName}}" type="video/mp4" preload="auto">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -46,5 +46,6 @@
         vid.currentTime = sec2;
     }, false);
 </script>
+@include('/footer')
 </body>
 </html>

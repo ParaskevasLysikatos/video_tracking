@@ -62,6 +62,6 @@
 </div>
 <br>
 @include('errors')
-<br>
+@include('/footer')
 </body>
 </html>

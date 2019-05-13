@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-
+@include('/scripts')
     <!-- Styles -->
     <style>
         html, body {
@@ -17,12 +17,9 @@
             color: #636b6f;
             font-family: 'Nunito', sans-serif;
             font-weight: 200;
-            height: 100vh;
         }
 
-        .full-height {
-            height: 100vh;
-        }
+
 
         .flex-center {
             align-items: center;
@@ -72,6 +69,6 @@
 </div>
 
 
-
+@include('/footer')
 </body>
 </html>

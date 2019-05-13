@@ -23,7 +23,7 @@
 <center>
     <form method="post" action="{{route('DeleteUser')}}">
         @method('delete')
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-2">
             <label style="font-size:20px; " for="Username">Username to select:</label>
             <select class="form-control" placeholder="Enter username" name="Username" required>
                 <option></option>
@@ -48,5 +48,6 @@
 
 <br>
 @include('errors')
+@include('/footer')
 </body>
 </html>

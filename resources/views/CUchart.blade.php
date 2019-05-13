@@ -402,6 +402,6 @@
 
 
 
-
+@include('/footer')
 </body>
 </html>

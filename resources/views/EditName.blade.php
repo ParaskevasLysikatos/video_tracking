@@ -24,7 +24,7 @@
 <center>
     <form method="post" action="{{route('EditName')}}">
         @method('post')
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-2">
             <label style="font-size:20px; " for="Username">Username is right now: {{$username}} </label>
             <div class="form-group">
                 <input type="text" class="form-control"  placeholder="Edit username" name="username">
@@ -40,5 +40,6 @@
     <a href="VideoDisplay"><button type="button" class="btn btn-success" style="width:90px; margin-top:2%; font-size:20px;">Back</button></a></center>
 <br>
 @include('errors')
+@include('/footer')
 </body>
 </html>

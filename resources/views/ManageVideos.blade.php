@@ -35,7 +35,7 @@
     <center><form method="post" action="{{url('/DownVideo')}}">
             @csrf
             <label>Records:</label>
-            <select id="rec" class="form-control" type="text" name="videofileD" size="6" style="width: 600px; height:200px; font-size: 18px;">
+            <select id="rec" class="form-control" type="text" name="videofileD" size="6" style="width: 400px; height:200px; font-size: 18px;">
                 @foreach ($displayVid as $v)
                     <option value="{{$v->upload_name}}" >{{$v->upload_name}}</option>
                 @endforeach
@@ -84,6 +84,7 @@
 
 </div>
 @include('errors')
+@include('/footer')
 </body>
 </html>
 

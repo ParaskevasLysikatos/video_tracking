@@ -29,6 +29,7 @@
 <div id="myDiv1" style=" margin-left: 5%; "><!-- Plotly chart will be drawn inside this DIV --></div>
 
 <center>
+    <span style="color: red;font-size: x-small "> click on heatmap  </span>
     <form method="post" action="{{route('InspectVideo1')}}">
         @csrf
             <input placeholder="Select video" name="videoName" id="y1" hidden >
@@ -142,6 +143,7 @@
 <div id="myDiv2" style=" margin-left: 5%; "><!-- Plotly chart will be drawn inside this DIV --></div>
 
 <center>
+    <span style="color: red;font-size: x-small "> click on heatmap  </span>
     <form method="post" action="{{route('InspectVideo2')}}">
         @method('delete')
         <input placeholder="Select video" name="videoName" id="y2" hidden >
@@ -253,6 +255,7 @@
 <div id="myDiv3" style=" width:100%; margin-left: 5%; "><!-- Plotly chart will be drawn inside this DIV --></div>
 
 <center>
+    <span style="color: red;font-size: x-small "> click on heatmap  </span>
     <form method="post" action="{{route('InspectVideo3')}}">
         @method('get')
         <input placeholder="Select video" name="videoName" id="y3" hidden >
@@ -351,6 +354,6 @@
         document.getElementById("y3").value = ysec;
     });
 </script>
-
+@include('/footer')
 </body>
 </html>

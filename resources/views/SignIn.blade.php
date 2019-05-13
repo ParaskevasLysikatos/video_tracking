@@ -23,7 +23,7 @@
 <center>
     <form method="post" action="{{route('SignInUser')}}">
         @method('post')
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-2">
             <label style="font-size:20px; " for="Username">Username to select:</label>
             <select class="form-control" placeholder="Enter username" name="Username" required>
                 <option></option>
@@ -39,5 +39,6 @@
     <a href="welcome"><button type="button" class="btn btn-success" style="width:90px; margin-top:2%; font-size:20px;">Back</button></a></center>
 <br>
 @include('errors')
+@include('/footer')
 </body>
 </html>
