@@ -112,18 +112,34 @@ class SignUserController extends BaseController
 
     public function SecondsInspect(Request $req)
 {
-    $videoName = $req->input('videoName');
+    //$videoName = $req->input('videoName');
+    $videoName= session('VideoHeat');
     $secGiven = $req->input('second');
+    if($secGiven==null)
+    {return redirect('VideosHeatSelect')->withErrors("not second given");}
+    if(!is_numeric($secGiven))
+    {return redirect('VideosHeatSelect')->withErrors("non numeric second given");}
+    $sec=DB::table('info_videos')->select('video_duration')->where('video_name',$videoName)->first();
+    $secC=$sec->video_duration;
+    if($secGiven>$secC || $secGiven<0 )
+    {return redirect('VideosHeatSelect')->withErrors("second don't exists");}
     $videoName=$videoName.".mp4";
     return view('InspectVideo',['videoName'=>$videoName,'secGiven'=>$secGiven]);
 }
 
     public function SecondsInspect2(Request $req)
     {
-        $videoName = $req->input('videoName');
+       // $videoName = $req->input('videoName');
+        $videoName= session('VideoHeat');
         $secGiven2 = $req->input('second');
+        if($secGiven2==null)
+        {return redirect('VideosHeatSelect')->withErrors("not second given");}
+        if(!is_numeric($secGiven2))
+        {return redirect('VideosHeatSelect')->withErrors("non numeric second given");}
         $sec=DB::table('info_videos')->select('video_duration')->where('video_name',$videoName)->first();
         $secC=$sec->video_duration;
+        if($secGiven2>$secC || $secGiven2<0)
+        {return redirect('VideosHeatSelect')->withErrors("second don't exists");}
         $videoName=$videoName.".mp4";
         $secGiven=$secC/100*$secGiven2 ;
         return view('InspectVideo',['videoName'=>$videoName,'secGiven'=>$secGiven]);
@@ -132,10 +148,17 @@ class SignUserController extends BaseController
 
     public function SecondsInspect3(Request $req)
     {
-        $videoName = $req->input('videoName');
+       // $videoName = $req->input('videoName');
+        $videoName= session('VideoHeat');
         $secGiven2 = $req->input('second');
+        if($secGiven2==null)
+        {return redirect('VideosHeatSelect')->withErrors("not second given");}
+        if(!is_numeric($secGiven2))
+        {return redirect('VideosHeatSelect')->withErrors("non numeric second given");}
         $sec=DB::table('info_videos')->select('video_duration')->where('video_name',$videoName)->first();
         $secC=$sec->video_duration;
+        if($secGiven2>$secC || $secGiven2<0 )
+        {return redirect('VideosHeatSelect')->withErrors("second don't exists");}
         $videoName=$videoName.".mp4";
         $secGiven=$secC/100*$secGiven2 ;
         return view('InspectVideo',['videoName'=>$videoName,'secGiven'=>$secGiven]);

@@ -309,6 +309,7 @@ class SaveController extends Controller
     {
         $usernameF=$req->input('video');
         $username=substr($usernameF,0,-4);
+        $req->session()->put('VideoHeat', $username);
 
         $playA=DB::table('info_videos')->select('video_event','video_name')->where('video_name','=', $username)->where('video_event','=','video play')->get()->count();
 

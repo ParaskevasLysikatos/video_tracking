@@ -99,7 +99,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success ended');
+                //console.log('success ended');
             },
             error: function () {
                 console.log('failed ended');
@@ -139,7 +139,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success play');
+                //console.log('success play');
             },
             error: function () {
                 console.log('failed play');
@@ -180,7 +180,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success paused');
+               // console.log('success paused');
             },
             error: function () {
                 console.log('failed paused');
@@ -217,7 +217,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success update');
+               // console.log('success update');
             },
             error: function () {
                 console.log('failed update');
@@ -256,7 +256,7 @@ function reply_click(event) {
             videoRestart();
         }
         var dur = parseFloat(videoId.duration).toFixed(0);
-        console.log(name + ' :' + event + '  Time_FromJump:' + timeEnd + '  Time_start:' + timeStart + ' Progress' + progress + '% ' + user_name);
+        console.log(name + ' :' + event + '  Time_FromJump: ' + timeEnd + '  Time_start:' + timeStart + ' Progress' + progress + '% ' + user_name);
         jQuery.ajax({
             url: 'video_save3',
             method: 'POST',
@@ -272,7 +272,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success seeking');
+              //  console.log('success seeking');
             },
             error: function () {
                 console.log('failed seeking');
@@ -310,7 +310,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success stop');
+              //  console.log('success stop');
             },
             error: function () {
                 console.log('failed stop');
@@ -333,7 +333,6 @@ function reply_click(event) {
         var tp5=Math.floor(progress/5);
         var p5q=tp5*5;
         var dur = parseFloat(videoId.duration).toFixed(0);
-        var tses = ses;
         console.log(name + ' :' + event + '  Time_start:' + timeStart + '  Time_end:' + timeEnd + ' Progress' + progress + '% ' + user_name);
         jQuery.ajax({
             url: 'video_save',
@@ -349,7 +348,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success restart');
+               // console.log('success restart');
             },
             error: function () {
                 console.log('failed restart');
@@ -386,7 +385,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                console.log('success second played');
+              //  console.log('success second played');
             },
             error: function () {
                 console.log('failed second played');
