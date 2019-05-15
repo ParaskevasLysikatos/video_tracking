@@ -93,7 +93,7 @@ class SignUserController extends BaseController
     {
         request()->validate([
             'videoName' => 'required',
-            'second' => 'required'
+            'second' => 'required|numeric'
         ]);
         $videoName = $req->input('videoName');
         $videoName2=substr($videoName,0,strlen($videoName)-4);
