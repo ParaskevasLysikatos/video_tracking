@@ -41,6 +41,7 @@
                         <br>
                     @endforeach
             </div>
+
                 </center>
 
     <script src="js/main.js"></script>

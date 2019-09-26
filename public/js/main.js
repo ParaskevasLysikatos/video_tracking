@@ -14,22 +14,23 @@ function reply_click(event) {
     console.log(event.target.id);
     videoId=event.target;
 }
-    var source2;
+   // var source2;
     var temp;
-    document.addEventListener('click',othervid, true);
+   /* document.addEventListener('click',othervid, true);
     function othervid(event) {
-        source2=event.target.id;
-        if(source2===source){clearSecfunction();}
-    }
+        source=event.target.id;
+        if(source===temp){clearSecfunction();}
+    }*/
 
-    document.addEventListener('timeupdate',otherplay, true);
+    document.addEventListener('mouseenter',otherplay, true);
     function otherplay(event) {
        temp=event.target.id;
-        if(temp!==source){pauseVid();}
+        if(temp!==source && temp!==null){pauseVid();}
     }
 
     function pauseVid() {
         document.getElementById(source.toString()).pause();
+        clearSecfunction();
     }
 
     document.addEventListener('click', init, true);
