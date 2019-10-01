@@ -39,7 +39,7 @@
                     <div>
 
                         <span style="color: #5a6268; font-weight: bold;font-size: medium"></span>   <h5 style="alignment: left; display:flow; padding-right: auto; position:relative;"> Video: {{$v->upload_name}}</h5>
-                <video name="video" id="{{$v->upload_name}}" style="alignment: left; display:flow;  margin: 1%;"   width="800px" height="350px" controls src="storage/videos/{{$v->upload_name}}" type="video/mp4" preload="metadata">
+                <video name="video" id="{{$v->upload_name}}" style="alignment: left; display:flow;  margin: 1%;"   width="800px" height="350px" controls src="storage/videos/{{$v->upload_name}}" type="video/mp4" preload="auto">
                     Your browser does not support the video tag.
                 </video>
 
