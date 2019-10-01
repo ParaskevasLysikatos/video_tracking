@@ -68,24 +68,24 @@ Route::get('/', function () {
 });
 
 
-Route::get('/ChooseVideoforUser', 'SignUserController@ChooseVideoforUser');
+Route::get('/ChooseVideoforUser', 'SignUserController@ChooseVideoforUser')->middleware('student');
 
-Route::get('/ManageVideos', 'UploadfileController@displayManageVideos');
+Route::get('/ManageVideos', 'UploadfileController@displayManageVideos')->middleware('lecturer');
 
 Route::get('/VideoDisplay', 'SignUserController@Display');
 
 Route::get('/EditName', 'SignUserController@DisplayEditName');
 
-Route::get('/SortedUsers', 'SaveController@SortedUsers');
+Route::get('/SortedUsers', 'SaveController@SortedUsers')->middleware('lecturer');
 
-Route::get('/SortedVideos', 'SaveController@SortedVideos');
+Route::get('/SortedVideos', 'SaveController@SortedVideos')->middleware('lecturer');
 
-Route::get('/VideosHeatSelect', 'SignUserController@VideosHeatmap');
+Route::get('/VideosHeatSelect', 'SignUserController@VideosHeatmap')->middleware('lecturer');
 
 Route::get('/SignOut', 'SignUserController@SignOutUser');
 
 Route::get('/SignIn', 'SignUserController@DisplaySignUser');
 
-Route::get('/UsersSelect', 'SignUserController@DisplaySelectUser');
+Route::get('/UsersSelect', 'SignUserController@DisplaySelectUser')->middleware('lecturer');
 
 Route::get('/DeleteUser', 'SignUserController@DisplayDeleteUser');

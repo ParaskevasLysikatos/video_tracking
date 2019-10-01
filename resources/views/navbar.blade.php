@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark"  style="position: fixed; top: 0;left:0;width: 100%;z-index: 1;">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark"  style="position: fixed; top: 0;left:0;width: 100%;z-index: 1;height:6%;">
     <div class="container-fluid ">
         <style>
-            .navbar-nav > li{padding-left:20px;
-                padding-right:20px;}
+            .navbar-nav > li{padding-left:15px;
+                padding-right:15px;}
             .navbar-nav .nav-link:hover {background-color:#545b62;}
         </style>
         <ul class="nav navbar-nav">
@@ -28,17 +28,18 @@
         </li>
         <li>  <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="ManageVideos">ManageVideos</a></li>
 
-            <li>    <a id="top" class="nav-link"  style="color: white; font-size: 18px;" href="">Scroll<img src="https://img.icons8.com/doodle/25/000000/up.png"> </a></li>
+            <li>    <a id="top" class="nav-link"  style="color: white; font-size: 18px;" href="">Scroll<img src="https://img.icons8.com/doodle/20/000000/up.png"> </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li>   <a class="nav-link" style="color: #00f9fa; font-weight: bold" href="{{ url('/SignOut') }}">SignOut</a></li>
+        <li>   <a class="nav-link" style="color: #00f9fa; font-weight: bold;padding-right:120px;" href="{{ url('/SignOut') }}">SignOut</a></li>
         </ul>
     </div>
 </nav>
 <br>
 <br>
 <br>
-<br>
+
+
 <script>
     //scroll to bottom
     $(document).ready(function() {

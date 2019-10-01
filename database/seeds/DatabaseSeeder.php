@@ -14,38 +14,22 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         DB::table('users')->insert([
             'username' => "Alice",
+            'role'=>"student",
             'user_session'=>0,
         ]);
 
         DB::table('users')->insert([
             'username' => "Bob",
+            'role'=>"student",
             'user_session'=>0,
         ]);
 
         DB::table('users')->insert([
-            'username' => "Nick",
+            'username' => "Professor",
+            'role'=>"lecturer",
             'user_session'=>0,
         ]);
 
-        DB::table('users')->insert([
-            'username' => "Jacob",
-            'user_session'=>0,
-        ]);
-
-        DB::table('users')->insert([
-            'username' => "Macy",
-            'user_session'=>0,
-        ]);
-
-        DB::table('users')->insert([
-            'username' => "Roberta",
-            'user_session'=>0,
-        ]);
-
-        DB::table('users')->insert([
-            'username' => "Paris",
-            'user_session'=>0,
-        ]);
 
     }
 }

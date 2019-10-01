@@ -22,11 +22,20 @@
 <center>
     <form method="post" action="{{route('RegisterUser')}}">
         @csrf
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-2">
             <label style="font-size: 20px;" for="Username">Type an username:</label>
             <div class="form-group">
                 <input type="text" class="form-control"  placeholder="Enter username" name="username">
             </div>
+        </div>
+        <br>
+        <div class="form-group col-md-2">
+            <label style="font-size:20px; " for="Username">Role to select:</label>
+            <select class="form-control" placeholder="Enter role" name="Role" required>
+                <option></option>
+                <option>Student</option>
+                <option>Lecturer</option>
+            </select>
         </div>
         <br>
         <button style="font-size: 20px;" type="submit" class="btn btn-primary">Register</button>

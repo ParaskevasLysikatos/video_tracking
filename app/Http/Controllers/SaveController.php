@@ -22,8 +22,9 @@ class SaveController extends Controller
         $progress5 = $req->Qprogress5;
         $duration = $req->Qduration;
         $video_user=$req->Qusername;
-        DB::table('info_videos')->insert(['video_name'=>$name,'video_event'=>$event,'video_current_timeStart'=>$timeS,'video_current_timeEnd'=>$timeE,'video_progress'=>$progress,'video_progress5'=>$progress5,'video_date'=>$nowD,'video_datetime'=>$nowT,'video_duration'=>$duration,'video_user'=>$video_user]);
-        return "success";
+        if(!DB::table('users')->select('role','username')->where('role','=','Lecturer')->where('username','=',$video_user)->first()) {
+            DB::table('info_videos')->insert(['video_name' => $name, 'video_event' => $event, 'video_current_timeStart' => $timeS, 'video_current_timeEnd' => $timeE, 'video_progress' => $progress, 'video_progress5' => $progress5, 'video_date' => $nowD, 'video_datetime' => $nowT, 'video_duration' => $duration, 'video_user' => $video_user]);
+        }return "success";
     }
 
     public function store2(Request $req)
@@ -39,10 +40,11 @@ class SaveController extends Controller
         $progress5 = $req->Qprogress5;
         $duration = $req->Qduration;
         $video_user=$req->Qusername;
-        DB::table('info_videos')->insert(['video_name'=>$name,'video_event'=>$event,'video_current_timeStart'=>$timeS,'video_progress'=>$progress,'video_progress5'=>$progress5,'video_date'=>$nowD,'video_datetime'=>$nowT,'video_duration'=>$duration,'video_user'=>$video_user]);
-        $last=DB::table('info_videos')->where('video_event','=','video play')->orderByDesc('info_id')->select('info_id')->first();
-        DB::table('info_videos')->where('info_id','=',$last->info_id)->update(['video_current_timeEnd'=>$timeE]);
-        return "success";
+        if(!DB::table('users')->select('role','username')->where('role','=','Lecturer')->where('username','=',$video_user)->first()) {
+            DB::table('info_videos')->insert(['video_name' => $name, 'video_event' => $event, 'video_current_timeStart' => $timeS, 'video_progress' => $progress, 'video_progress5' => $progress5, 'video_date' => $nowD, 'video_datetime' => $nowT, 'video_duration' => $duration, 'video_user' => $video_user]);
+            $last = DB::table('info_videos')->where('video_event', '=', 'video play')->orderByDesc('info_id')->select('info_id')->first();
+            DB::table('info_videos')->where('info_id', '=', $last->info_id)->update(['video_current_timeEnd' => $timeE]);
+        } return "success";
     }
 
     public function store3(Request $req)
@@ -59,10 +61,11 @@ class SaveController extends Controller
         $protectPlay=$req->Qplay;
         $duration = $req->Qduration;
         $video_user=$req->Qusername;
-        DB::table('info_videos')->insert(['video_name'=>$name,'video_event'=>$event,'video_fromJump'=>$timeE,'video_current_timeStart'=>$timeS,'video_progress'=>$progress,'video_progress5'=>$progress5,'video_date'=>$nowD,'video_datetime'=>$nowT,'video_duration'=>$duration,'video_user'=>$video_user]);
-        $last=DB::table('info_videos')->where('video_event','=','video play')->orderByDesc('info_id')->select('info_id')->first();
-        DB::table('info_videos')->where('info_id','=',$last->info_id)->update(['video_current_timeEnd'=>$protectPlay]);
-        return "success";
+        if(!DB::table('users')->select('role','username')->where('role','=','Lecturer')->where('username','=',$video_user)->first()) {
+            DB::table('info_videos')->insert(['video_name' => $name, 'video_event' => $event, 'video_fromJump' => $timeE, 'video_current_timeStart' => $timeS, 'video_progress' => $progress, 'video_progress5' => $progress5, 'video_date' => $nowD, 'video_datetime' => $nowT, 'video_duration' => $duration, 'video_user' => $video_user]);
+            $last = DB::table('info_videos')->where('video_event', '=', 'video play')->orderByDesc('info_id')->select('info_id')->first();
+            DB::table('info_videos')->where('info_id', '=', $last->info_id)->update(['video_current_timeEnd' => $protectPlay]);
+        }return "success";
     }
 
     public function SortedVideos()

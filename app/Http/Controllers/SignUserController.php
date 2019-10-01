@@ -29,10 +29,12 @@ class SignUserController extends BaseController
     {
         request()->validate([
             'Username' => 'required',
+            'Role' => 'required',
         ]);
         $username = $req->input('Username');
+        $role = $req->input('Role');
          if(DB::table('users')->
-        select('username')->where('username', $username)->exists())
+        select('username','role')->where('username', $username)->where('role',$role)->exists())
          {
              $req->session()->put('Uname', $username);
              $Video= DB::table('upload_videos')->select('upload_name')->get();
@@ -40,24 +42,26 @@ class SignUserController extends BaseController
          }
          else
              {
-                 return redirect('SignIn')->withErrors("Sign In Failed due to wrong data passed. "." Username passed: ".$username);
+                 return redirect('SignIn')->withErrors("Sign In Failed due to wrong data passed. "." Username passed: ".$username." "." Role passed: ".$role);
              }
     }
 
     public function RegisterUser(Request $req)
     {
         request()->validate([
-            'username' => 'required|unique:users,username',
+            'username' => 'required|unique:users,username|alpha|min:3',
+            'Role' => 'required',
         ]);
         $username = $req->input('username');
-        DB::table('users')->insert(['username'=>$username,'user_session'=>0]);
+        $role = $req->input('Role');
+        DB::table('users')->insert(['username'=>$username,'user_session'=>0,'role'=>$role]);
         return view('welcome');
     }
 
     public function EditName(Request $req)
     {
         request()->validate([
-            'username' => 'required|unique:users,username',
+            'username' => 'required|unique:users,username|alpha|min:3',
         ]);
         $username = $req->input('username');
         $usernameold = session('Uname');
@@ -69,7 +73,7 @@ class SignUserController extends BaseController
 
     public function DisplaySelectUser(Request $req)
     {
-        $username= DB::table('users')->select('username')->get();
+        $username= DB::table('users')->select('username','role')->where('role','=','Student')->get();
         $video=DB::table('upload_videos')->select('upload_name')->get();
         return view('UsersSelect',['username'=>$username,'video'=>$video]);
     }

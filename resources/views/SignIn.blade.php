@@ -32,6 +32,15 @@
             </select>
         </div>
         <br>
+        <div class="form-group col-md-2">
+            <label style="font-size:20px; " for="Username">Role to select:</label>
+            <select class="form-control" placeholder="Enter role" name="Role" required>
+                <option></option>
+                <option>Student</option>
+                    <option>Lecturer</option>
+            </select>
+        </div>
+        <br>
         <button style="font-size: 20px;" type="submit" class="btn btn-primary">Sign In</button>
     </form>
 </center>

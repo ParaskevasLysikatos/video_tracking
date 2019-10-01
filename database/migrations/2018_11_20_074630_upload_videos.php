@@ -14,6 +14,7 @@ class UploadVideos extends Migration
     public function up()
     {
         Schema::create('upload_videos', function (Blueprint $table) {
+            $table->increments('upload_id');
             $table->string('upload_name');
         });
     }
