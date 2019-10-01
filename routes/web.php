@@ -40,6 +40,8 @@ Route::post('/EditName', 'SignUserController@EditName')->name('EditName');
 
 Route::post('/UsersSelect', 'SaveController@UserSelection')->name('UserSelect');
 
+Route::post('/OneUserSelect', 'SaveController@OneUserSelection')->name('OneUser');
+
 Route::post('/ChooseVideoforUser', 'SaveController@chartUser')->name('VideoforUser');
 
 Route::post('/VideosHeatmap', 'SaveController@VideosHeatmap')->name('VideosHeatmap');
@@ -87,5 +89,7 @@ Route::get('/SignOut', 'SignUserController@SignOutUser');
 Route::get('/SignIn', 'SignUserController@DisplaySignUser');
 
 Route::get('/UsersSelect', 'SignUserController@DisplaySelectUser')->middleware('lecturer');
+
+Route::get('/OneUserSelect', 'SignUserController@DisplayOneUser')->middleware('lecturer');
 
 Route::get('/DeleteUser', 'SignUserController@DisplayDeleteUser');

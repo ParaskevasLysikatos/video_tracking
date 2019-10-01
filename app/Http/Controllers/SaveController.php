@@ -218,6 +218,97 @@ class SaveController extends Controller
         return view('CUchart',['videoRange'=>$videoRange,'video'=>$video,'playedsecA'=>$playedsecA,'playedsecB'=>$playedsecB,'username1'=>$username1,'username2'=>$username2,'playedsecA1'=>$playedsecA1,'playedsecB1'=>$playedsecB1,'playedsecA5'=>$playedsecA5,'playedsecB5'=>$playedsecB5]);
     }
 
+    public function OneUserSelection(Request $req)
+    {
+        request()->validate([
+            'username' => 'required',
+            'videoName' => 'required'
+        ]);
+        $username = $req->input('username');
+        $video = $req->input('videoName');
+        $video = substr($video, 0, -4);
+        $videoRange2 = DB::table('info_videos')->select('video_duration')->where('video_name', '=', $video)->first();
+        $videoRange = $videoRange2->video_duration;
+
+        $playA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video play')->where('video_name',$video)->get()->count();
+
+        $pausedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video paused')->where('video_name',$video)->get()->count();
+
+        $stopA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video stop')->where('video_name',$video)->get()->count();
+
+        $restartA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video restart')->where('video_name',$video)->get()->count();
+
+        $endedA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video ended')->where('video_name',$video)->get()->count();
+
+        $seekedfA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video seeking forward')->where('video_name',$video)->get()->count();
+
+        $seekedbA=DB::table('info_videos')->select('video_event','video_user')->where('video_user','=', $username)->where('video_event','=','video seeking backward')->where('video_name',$video)->get()->count();
+
+        $playedsecA=DB::table('info_videos')->select(DB::raw('DISTINCT video_current_timeStart,COUNT(*) as count,video_duration,video_user'))->groupBy('video_current_timeStart','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
+
+        $playedsecA1=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress,COUNT(*) as count,video_duration,video_user'))->groupBy('video_progress','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
+
+        $playedsecA5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration,video_user'))->groupBy('video_duration','video_user','video_progress5')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
+
+
+        $lava = new Lavacharts;
+        $video_data  = \Lava::DataTable();
+        $video_data->addStringColumn('Events')
+            ->addNumberColumn('Count ' .$username)
+            ->addRow(['Play',  $playA])
+            ->addRow(['Paused',  $pausedA])
+            ->addRow(['Stopped',  $stopA])
+            ->addRow(['Restarted',  $restartA])
+            ->addRow(['Ended',  $endedA])
+            ->addRow(['Seeked forward',  $seekedfA])
+            ->addRow(['Seeked backward',  $seekedbA]);
+
+
+
+        \Lava::ColumnChart('Events', $video_data,[
+            'title' => 'Events times happened',
+            'legend' => [
+                'position' => 'none'
+            ],
+            'hAxis' => [
+                'title' => 'Event type'
+            ],
+            'vAxis' => [
+                'title' => 'Times (count)'
+            ]
+        ]);
+
+        //------------------other chart
+
+        $video_data2  = \Lava::DataTable();
+        $video_data2->addNumberColumn('Progress %');
+        $video_data2->addNumberColumn('Played Second '. $username);
+
+
+        foreach($playedsecA1 as $p){
+            $video_data2->addRow([$p->video_progress,$p->count]);
+        }
+
+
+        \Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
+            'hAxis' => [
+                'title' => 'Progress %'
+            ],
+            'vAxis' => [
+                'title' => 'Times (count)'
+            ],
+            'height'=>600,
+            'width' => 1000,
+            'title' => 'Progress of '. $username.' on Played Seconds',
+            'legend' => [
+                'position' => 'none'
+            ]
+        ]);
+
+        return view('Ochart',['videoRange'=>$videoRange,'video'=>$video,'playedsecA'=>$playedsecA,'username'=>$username,'playedsecA5'=>$playedsecA5,'playedsecA1'=>$playedsecA1]);
+
+    }
+
     public function chartUser(Request $req)
     {
         request()->validate([

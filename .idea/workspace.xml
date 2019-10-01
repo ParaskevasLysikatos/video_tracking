@@ -139,6 +139,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
@@ -191,6 +192,7 @@
       <workItem from="1569788438438" duration="2229000" />
       <workItem from="1569910924878" duration="6912000" />
       <workItem from="1569919660326" duration="34000" />
+      <workItem from="1569926823517" duration="1738000" />
     </task>
     <servers />
   </component>

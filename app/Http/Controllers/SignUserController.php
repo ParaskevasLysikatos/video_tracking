@@ -78,6 +78,12 @@ class SignUserController extends BaseController
         return view('UsersSelect',['username'=>$username,'video'=>$video]);
     }
 
+    public function DisplayOneUser(Request $req)
+    {
+        $username= DB::table('users')->select('username','role')->where('role','=','Student')->get();
+        $video=DB::table('upload_videos')->select('upload_name')->get();
+        return view('OneUserSelect',['username'=>$username,'video'=>$video]);
+    }
 
 
     public function DisplaySignUser(Request $req)

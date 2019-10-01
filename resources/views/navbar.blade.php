@@ -11,9 +11,11 @@
 
             <li>   <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="ChooseVideoforUser">User's charts</a></li>
 
-            <li> <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="UsersSelect">Compare 2 user charts</a></li>
+            <li> <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="OneUserSelect">Specific user's charts</a></li>
 
-            <li> <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="VideosHeatSelect">Videos Heatmap</a></li>
+            <li> <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="UsersSelect">Compare 2 users' charts</a></li>
+
+            <li> <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="VideosHeatSelect">Videos' Heatmap</a></li>
 
             <li>   <a class="nav-link" style="color: #f8f9fa; font-weight: bold" href="EditName">Edit user's Name</a></li>
 
