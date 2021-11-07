@@ -1,40 +1,32 @@
 
+var videoId ;
+var source ;
 
-    var videoId ;// = document.getElementsByTagName('video')[0];
-     var source ; // = document.getElementsByTagName('video')[0].getAttribute('src');
-
-
-//var videoId;
-//var source;
 document.addEventListener('click',reply_click, true);
 function reply_click(event) {
-    console.log(event.target.getAttribute('src'));
-    otherp1=event.target.getAttribute('src');
     source=event.target.id;
-    console.log(event.target.id);
     videoId=event.target;
-}
-   // var source2;
-    var temp;
-   /* document.addEventListener('click',othervid, true);
-    function othervid(event) {
-        source=event.target.id;
-        if(source===temp){clearSecfunction();}
-    }*/
 
-    document.addEventListener('mouseenter',otherplay, true);
+     var temp;
+
+    document.addEventListener('mouseover',otherplay, true);
     function otherplay(event) {
+        //console.log("initial playing video, event target id is: "+source)
        temp=event.target.id;
-        if(temp!==source && temp!==null){pauseVid();}
+       //console.log("temp event target id is: "+temp)
+        if(temp!=source && temp.length>0){pauseVid();}
     }
 
+}
+
+
+
     function pauseVid() {
-        document.getElementById(source.toString()).pause();
+        document.getElementById(source).pause();
         clearSecfunction();
     }
 
     document.addEventListener('click', init, true);
-//var b=document.getElementsByTagName('button')[0];
 
     var name;
     var event;
@@ -66,7 +58,6 @@ function reply_click(event) {
         videoId.addEventListener('play', videoPlay, true);
         videoId.addEventListener('pause', videoPause, true);
         videoId.addEventListener('seeking', videoSeeking, true);
-        //b.addEventListener("mouseenter", ShowAlert);
     }
 
     function videoEnd() {
@@ -100,7 +91,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                //console.log('success ended');
+               // console.log('success ended');
             },
             error: function () {
                 console.log('failed ended');
@@ -140,7 +131,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-                //console.log('success play');
+               // console.log('success play');
             },
             error: function () {
                 console.log('failed play');
@@ -181,7 +172,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-               // console.log('success paused');
+                console.log('success paused');
             },
             error: function () {
                 console.log('failed paused');
@@ -189,43 +180,43 @@ function reply_click(event) {
         });
     }
 
-    function videoTimeUpdate() {
-        name = source;
-        var nameQ = name.substring(0, name.length - 4);
-        event = 'video update ';
-        var eventQ = event;
-        timeStart = parseFloat(videoId.currentTime.toFixed(0));
-        var tsq = timeStart;
-        timeEnd = null;
-        var teq = timeEnd;
-        progress = parseFloat((parseFloat(timeStart).toFixed(0) / parseFloat(videoId.duration).toFixed(0)) * 100).toFixed(0);
-        var pq = progress;
-        var tp5=Math.floor(progress/5);
-        var p5q=tp5*5;
-        var dur = parseFloat(videoId.duration).toFixed(0);
-        console.log(name + ' :' + event + '  Time_start:' + timeStart + '  Time_end:' + timeEnd + ' Progress' + progress + '% ' + user_name);
-        jQuery.ajax({
-            url: 'video_save',
-            method: 'POST',
-            data: {
-                Qname: nameQ,
-                Qevent: eventQ,
-                QtimeStart: tsq,
-                QtimeEnd: teq,
-                Qprogress: pq,
-                Qprogress5: p5q,
-                Qduration: dur,
-                Qusername: user_name
-            },
-            success: function () {
-               // console.log('success update');
-            },
-            error: function () {
-                console.log('failed update');
-            }
-        });
+    // function videoTimeUpdate() {
+    //     name = source;
+    //     var nameQ = name.substring(0, name.length - 4);
+    //     event = 'video update ';
+    //     var eventQ = event;
+    //     timeStart = parseFloat(videoId.currentTime.toFixed(0));
+    //     var tsq = timeStart;
+    //     timeEnd = null;
+    //     var teq = timeEnd;
+    //     progress = parseFloat((parseFloat(timeStart).toFixed(0) / parseFloat(videoId.duration).toFixed(0)) * 100).toFixed(0);
+    //     var pq = progress;
+    //     var tp5=Math.floor(progress/5);
+    //     var p5q=tp5*5;
+    //     var dur = parseFloat(videoId.duration).toFixed(0);
+    //     console.log(name + ' :' + event + '  Time_start:' + timeStart + '  Time_end:' + timeEnd + ' Progress' + progress + '% ' + user_name);
+    //     jQuery.ajax({
+    //         url: 'video_save',
+    //         method: 'POST',
+    //         data: {
+    //             Qname: nameQ,
+    //             Qevent: eventQ,
+    //             QtimeStart: tsq,
+    //             QtimeEnd: teq,
+    //             Qprogress: pq,
+    //             Qprogress5: p5q,
+    //             Qduration: dur,
+    //             Qusername: user_name
+    //         },
+    //         success: function () {
+    //             console.log('success update');
+    //         },
+    //         error: function () {
+    //             console.log('failed update');
+    //         }
+    //     });
 
-    }
+    // }
 
     function videoSeeking() {
         var win;
@@ -273,7 +264,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-              //  console.log('success seeking');
+              // console.log('success seeking');
             },
             error: function () {
                 console.log('failed seeking');
@@ -386,7 +377,7 @@ function reply_click(event) {
                 Qusername: user_name
             },
             success: function () {
-              //  console.log('success second played');
+               // console.log('success second played');
             },
             error: function () {
                 console.log('failed second played');
@@ -398,7 +389,7 @@ function reply_click(event) {
         clearInterval(second);
     }
 
-    $(window).on('load', function () {
+ $(window).on('load', function () {
         jQuery.ajax({
             url: 'video_session',
             method: 'POST',
@@ -413,13 +404,6 @@ function reply_click(event) {
             }
         });
     });
-
-
-    function ShowAlert() {
-        console.log(source);
-        alert(source);
-    }
-
 
 
 

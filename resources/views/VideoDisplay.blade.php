@@ -22,12 +22,17 @@
 
         </style>
     </head>
+    @php
+         use Illuminate\Support\Facades\DB;
+            $total=DB::table('upload_videos')->count();
+    @endphp
     <body>
     @include('/navbar')
     @include('errors')
             <div class="grid-container">
                     <h1 style="font-size: 30px;   margin:1%;  text-align: center; ">Video Display </h1>
-                <h6 style="   text-align: center; font-size: 18px;color: #1d643b;  font-weight: bold; ">Current user: {{$username}} </h6>
+                {{-- <h6 style="   text-align: center; font-size: 18px;color: #1d643b;  font-weight: bold; ">Current user: {{$username}} </h6> --}}
+                <h6 style="   text-align: center; font-size: 18px;color: #1d643b;  font-weight: bold; ">Total videos  @php echo $total @endphp </h6>
                 <p id="nm" hidden>{{$username}}</p>
                 <button id="btn" hidden></button>
                 </div>

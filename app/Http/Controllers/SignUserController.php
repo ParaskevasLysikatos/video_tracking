@@ -28,13 +28,11 @@ class SignUserController extends BaseController
     public function SignInUser(Request $req)
     {
         request()->validate([
-            'Username' => 'required',
-            'Role' => 'required',
+            'Username' => 'required'
         ]);
-        $username = $req->input('Username');
-        $role = $req->input('Role');
+        $username = explode(':',$req->input('Username'))[0];
          if(DB::table('users')->
-        select('username','role')->where('username', $username)->where('role',$role)->exists())
+        select('username','role')->where('username', $username)->exists())
          {
              $req->session()->put('Uname', $username);
              $Video= DB::table('upload_videos')->select('upload_name')->get();
@@ -42,7 +40,7 @@ class SignUserController extends BaseController
          }
          else
              {
-                 return redirect('SignIn')->withErrors("Sign In Failed due to wrong data passed. "." Username passed: ".$username." "." Role passed: ".$role);
+                 return redirect('SignIn')->withErrors("Sign In Failed due to wrong data passed. "." Username passed: ".$username);
              }
     }
 
@@ -88,7 +86,7 @@ class SignUserController extends BaseController
 
     public function DisplaySignUser(Request $req)
     {
-        $username= DB::table('users')->select('username')->get();
+        $username= DB::table('users')->select('username','role')->get();
         return view('SignIn',['username'=>$username]);
     }
 

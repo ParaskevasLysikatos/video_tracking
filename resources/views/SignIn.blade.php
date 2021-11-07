@@ -28,16 +28,7 @@
             <select class="form-control" placeholder="Enter username" name="Username" required>
                 <option></option>
                 @foreach($username as $u)
-                <option>{{$u->username}}</option>@endforeach
-            </select>
-        </div>
-        <br>
-        <div class="form-group col-md-2">
-            <label style="font-size:20px; " for="Username">Role to select:</label>
-            <select class="form-control" placeholder="Enter role" name="Role" required>
-                <option></option>
-                <option>Student</option>
-                    <option>Lecturer</option>
+                <option>{{$u->username}} : {{$u->role}}</option>@endforeach
             </select>
         </div>
         <br>
