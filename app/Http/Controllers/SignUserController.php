@@ -92,7 +92,7 @@ class SignUserController extends BaseController
 
     public function DisplayDeleteUser(Request $req)
     {
-        $username= DB::table('users')->select('username')->get();
+        $username= DB::table('users')->select('username','role')->get();
         return view('DeleteUser',['username'=>$username]);
     }
 
@@ -173,7 +173,7 @@ class SignUserController extends BaseController
 
     public function DeleteUser(Request $req)
     {
-        $username = $req->input('Username');
+        $username =  explode(':',$req->input('Username'))[0];
         if(DB::table('users')->where('username',$username)->exists())
         {
             DB::table('info_videos')->where('video_user',$username)->delete();

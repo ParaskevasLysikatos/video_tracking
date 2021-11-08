@@ -28,7 +28,7 @@
             <select class="form-control" placeholder="Enter username" name="Username" required>
                 <option></option>
                 @foreach($username as $u)
-                    <option>{{$u->username}}</option>@endforeach
+                    <option>{{$u->username}} : {{$u->role}}</option>@endforeach
             </select>
         </div>
         <br>
