@@ -53,9 +53,7 @@ class UploadfileController extends BaseController
 
             $path = $request->file('videofile')->storeAs('public/videos', $fileNameToStore);
             DB::table('upload_videos')->insert(['upload_name'=>$fileNameToStore]);
-           // Schema::create($filename, function (Blueprint $table) {
-             //   $table->increments('id');
-           // });
+           
 
         }
         else{
@@ -93,4 +91,3 @@ class UploadfileController extends BaseController
     }
 
 }
-
