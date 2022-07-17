@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Http\Response;
+
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Collection;
-use App\Http\Controllers\Controller;
+
 use Illuminate\Routing\Controller as BaseController;
 use  Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+
 
 class UploadfileController extends BaseController
 {
@@ -84,9 +81,10 @@ class UploadfileController extends BaseController
        // $check2=is_file((storage_path('app/public/videos/' . $selected)));
        $check2=Storage::disk('s3')->exists('public/videos/'.$selected);
         if($check&&$check2) {
+            Storage::disk('s3')->delete('public/videos/'.$selected);
             DB::table('upload_videos')->where('upload_name','=',$selected)->delete();
            // Storage::delete('public/videos/'.$selected);
-           Storage::disk('s3')->delete('public/videos/' . $selected);
+
         return redirect('ManageVideos')->with('success', 'deleted successfully');
         }
         else return redirect('ManageVideos')->withErrors("not found, check again");
