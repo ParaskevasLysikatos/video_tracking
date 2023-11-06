@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark"  style="position: fixed; top: 0;left:0;right:0; width: 100%;z-index: 1;height:6%;">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"  style="z-index: 1;">
     <div class="container-fluid ">
         <style>
             .navbar-nav > li{margin-left: .2em;
-                margin-right: .2em; margin-top:.2em;}
+                margin-right: .2em; margin-top:0.5%;}
             .navbar-nav .nav-link:hover {background-color:#545b62;}
         </style>
         @php
