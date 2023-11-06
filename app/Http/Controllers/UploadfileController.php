@@ -49,9 +49,8 @@ class UploadfileController extends BaseController
             if($ch)
             {return redirect('ManageVideos')->withErrors("Upload failed cause file exists");}
 
-            $path = $request->file('videofile')->storeAs('/', $fileNameToStore,'s3');
+            $path = $request->file('videofile')->storePubliclyAs('/', $fileNameToStore,'s3');
             DB::table('upload_videos')->insert(['upload_name'=>$fileNameToStore]);
-
 
         }
         else{
@@ -59,7 +58,7 @@ class UploadfileController extends BaseController
         }
 
 
-        return redirect('ManageVideos')->with('success', 'upload done successfully');
+        return redirect('ManageVideos')->with('success', 'upload done successfully, path: '. $path);
     }
 
 
