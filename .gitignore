@@ -1,1 +1,6 @@
 .env
+/vendor
+/node_modules
+/.fleet
+/.idea
+/.vscode
