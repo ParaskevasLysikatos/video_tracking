@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\SaveController;
+use App\Http\Controllers\SignUserController;
+use App\Http\Controllers\UploadfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,49 +22,49 @@ use Illuminate\Support\Facades\Route;
 
 
 /*  post routes*/
-Route::post('/ManageVideos', 'UploadfileController@upload');
+Route::post('/ManageVideos', [UploadfileController::class, 'upload']);
 
-Route::post('/video_save','SaveController@store');
+Route::post('/video_save', [SaveController::class, 'store']);
 
-Route::post('/video_save2','SaveController@store2');
+Route::post('/video_save2', [SaveController::class, 'store2']);
 
-Route::post('/video_save3','SaveController@store3');
+Route::post('/video_save3',[SaveController::class, 'store3']);
 
-Route::post('/video_session','SaveController@UserSession');
-
-
-Route::post('/SignIn','SignUserController@SignInUser')->name('SignInUser');
-
-Route::delete('/VideoHeatmap','SignUserController@SecondsInspect2')->name('InspectVideo2');
-
-Route::get('/VideoHeatmap','SignUserController@SecondsInspect3')->name('InspectVideo3');
+Route::post('/video_session', [SaveController::class, 'UserSession']);
 
 
-Route::post('/VideoHeatmap','SignUserController@SecondsInspect')->name('InspectVideo1');
+Route::post('/SignIn', [SignUserController::class, 'SignInUser'])->name('SignInUser');
 
-Route::post('/SortedUsers','SignUserController@SeeInspectVideo')->name('InspectVideoS');
+Route::delete('/VideoHeatmap', [SignUserController::class, 'SecondsInspect2'])->name('InspectVideo2');
 
-Route::post('/Register','SignUserController@RegisterUser')->name('RegisterUser');
+Route::get('/VideoHeatmap', [SignUserController::class, 'SecondsInspect3'])->name('InspectVideo3');
 
-Route::post('/EditName', 'SignUserController@EditName')->name('EditName');
 
-Route::post('/UsersSelect', 'SaveController@UserSelection')->name('UserSelect');
+Route::post('/VideoHeatmap', [SignUserController::class, 'SecondsInspect'])->name('InspectVideo1');
 
-Route::post('/OneUserSelect', 'SaveController@OneUserSelection')->name('OneUser');
+Route::post('/SortedUsers', [SignUserController::class, 'SeeInspectVideo'])->name('InspectVideoS');
 
-Route::post('/ChooseVideoforUser', 'SaveController@chartUser')->name('VideoforUser');
+Route::post('/Register', [SignUserController::class, 'RegisterUser'])->name('RegisterUser');
 
-Route::post('/VideosHeatmap', 'SaveController@VideosHeatmap')->name('VideosHeatmap');
+Route::post('/EditName', [SignUserController::class, 'EditName'])->name('EditName');
 
-Route::post('/SaveVideo', 'UploadfileController@SaveVideo');
+Route::post('/UsersSelect', [SaveController::class, 'UserSelection'])->name('UserSelect');
 
-Route::post('/DownVideo', 'UploadfileController@DownVideo');
+Route::post('/OneUserSelect', [SaveController::class, 'OneUserSelection'])->name('OneUser');
+
+Route::post('/ChooseVideoforUser', [SaveController::class, 'chartUser'])->name('VideoforUser');
+
+Route::post('/VideosHeatmap', [SaveController::class, 'VideosHeatmap'])->name('VideosHeatmap');
+
+Route::post('/SaveVideo', [UploadfileController::class, 'SaveVideo']);
+
+Route::post('/DownVideo', [UploadfileController::class, 'DownVideo']);
 
 
 /* delete routes */
-Route::delete('/DeleteUser','SignUserController@DeleteUser')->name('DeleteUser');
+Route::delete('/DeleteUser', [SignUserController::class, 'DeleteUser'])->name('DeleteUser');
 
-Route::delete('/ManageVideos','UploadfileController@DelVideo')->name('DeleteVideo');
+Route::delete('/ManageVideos', [UploadfileController::class, 'DelVideo'])->name('DeleteVideo');
 
 /*  view routes */
 Route::view('/Register', 'Register');
@@ -77,29 +80,29 @@ Route::get('/', function () {
 });
 
 
-Route::get('/ChooseVideoforUser', 'SignUserController@ChooseVideoforUser')->middleware('student');
+Route::get('/ChooseVideoforUser', [SignUserController::class, 'ChooseVideoforUser'])->middleware('student');
 
-Route::get('/ManageVideos', 'UploadfileController@displayManageVideos')->middleware('lecturer');
+Route::get('/ManageVideos', [UploadfileController::class, 'displayManageVideos'])->middleware('lecturer');
 
-Route::get('/VideoDisplay', 'SignUserController@Display');
+Route::get('/VideoDisplay', [SignUserController::class, 'Display']);
 
-Route::get('/EditName', 'SignUserController@DisplayEditName');
+Route::get('/EditName', [SignUserController::class, 'DisplayEditName']);
 
-Route::get('/SortedUsers', 'SaveController@SortedUsers')->middleware('lecturer');
+Route::get('/SortedUsers', [SaveController::class, 'SortedUsers'])->middleware('lecturer');
 
-Route::get('/SortedVideos', 'SaveController@SortedVideos')->middleware('lecturer');
+Route::get('/SortedVideos', [SaveController::class, 'SortedVideos'])->middleware('lecturer');
 
-Route::get('/VideosHeatSelect', 'SignUserController@VideosHeatmap')->middleware('lecturer');
+Route::get('/VideosHeatSelect', [SignUserController::class, 'VideosHeatmap'])->middleware('lecturer');
 
-Route::get('/SignOut', 'SignUserController@SignOutUser');
+Route::get('/SignOut', [SignUserController::class, 'SignOutUser']);
 
-Route::get('/SignIn', 'SignUserController@DisplaySignUser');
+Route::get('/SignIn', [SignUserController::class, 'DisplaySignUser']);
 
-Route::get('/UsersSelect', 'SignUserController@DisplaySelectUser')->middleware('lecturer');
+Route::get('/UsersSelect', [SignUserController::class, 'DisplaySelectUser'])->middleware('lecturer');
 
-Route::get('/OneUserSelect', 'SignUserController@DisplayOneUser')->middleware('lecturer');
+Route::get('/OneUserSelect', [SignUserController::class, 'DisplayOneUser'])->middleware('lecturer');
 
-Route::get('/DeleteUser', 'SignUserController@DisplayDeleteUser');
+Route::get('/DeleteUser', [SignUserController::class, 'DisplayDeleteUser']);
 
 
 
