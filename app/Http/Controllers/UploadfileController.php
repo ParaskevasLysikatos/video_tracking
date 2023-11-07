@@ -24,6 +24,9 @@ class UploadfileController extends BaseController
 
     public function SaveVideo(Request $request)
     {
+        ini_set('upload_max_filesize', '500M');
+        ini_set('max_execution_time', 600);
+        ini_set('post_max_size', '500M');
 
         request()->validate([
             'videofile' => 'required|file|mimes:mp4|unique:upload_videos,upload_name'
