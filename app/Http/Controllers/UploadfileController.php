@@ -24,9 +24,7 @@ class UploadfileController extends BaseController
 
     public function SaveVideo(Request $request)
     {
-        ini_set('max_execution_time', 600);
-        ini_set('upload_max_filesize', '50M');
-        ini_set('post_max_size', '50M');
+
         request()->validate([
             'videofile' => 'required|file|mimes:mp4|unique:upload_videos,upload_name'
         ]);
@@ -48,10 +46,18 @@ class UploadfileController extends BaseController
             $fileNameToStore = $filename.'.'.$extension;
 
             $ch=DB::table('upload_videos')->where('upload_name',$fileNameToStore)->exists();
-            if($ch)
-            {return redirect('ManageVideos')->withErrors("Upload failed cause file exists");}
 
-            $path = $request->file('videofile')->storePubliclyAs('/', $fileNameToStore,'s3');
+            if($ch){
+                return redirect('ManageVideos')->withErrors("Upload failed cause file exists");
+            }
+
+
+            $path = $request->file('videofile')->storeAs('', $fileNameToStore);
+           // $path = Storage::disk('s3')->put($fileNameToStore, file_get_contents($request->file('videofile')));
+
+            if($path==''){
+                return redirect('ManageVideos')->withErrors("path failed");
+            }
             DB::table('upload_videos')->insert(['upload_name'=>$fileNameToStore]);
 
         }
@@ -69,7 +75,7 @@ class UploadfileController extends BaseController
         $selected = $request->input('videofileD');
     //    if(is_file((storage_path('app/public/videos/' . $selected)))) {
     //        return response()->download(storage_path('app/public/videos/' . $selected));
-          return Storage::disk('s3')->download('public/videos/' . $selected);
+          return Storage::disk('s3')->download( $selected);
     //    }
     //     else return redirect('ManageVideos')->withErrors("download failed");
     }
@@ -80,9 +86,9 @@ class UploadfileController extends BaseController
         $selected = $request->Vid;
         $check = DB::table('upload_videos')->where('upload_name','=',$selected)->exists();
        // $check2=is_file((storage_path('app/public/videos/' . $selected)));
-       $check2=Storage::disk('s3')->exists('public/videos/'.$selected);
+       $check2=Storage::disk('s3')->exists($selected);
         if($check&&$check2) {
-            Storage::disk('s3')->delete('public/videos/'.$selected);
+            Storage::disk('s3')->delete($selected);
             DB::table('upload_videos')->where('upload_name','=',$selected)->delete();
            // Storage::delete('public/videos/'.$selected);
 
