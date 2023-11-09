@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Khill\Lavacharts\DataTables\Formats\Format;
 use Khill\Lavacharts\Lavacharts;
+use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 class SaveController extends Controller
 {
 
@@ -140,8 +141,7 @@ class SaveController extends Controller
         $playedsecB5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration, video_user'))->groupBy('video_progress5','video_duration','video_user')->where('video_event','=','video second played')->where('video_user','=',$username2)->where('video_name',$video)->get();
 
 
-        $lava = new Lavacharts;
-        $video_data  = \Lava::DataTable();
+        $video_data  = Lava::DataTable();
         $video_data->addStringColumn('Events')
             ->addNumberColumn($username1)
             ->addNumberColumn($username2)
@@ -153,7 +153,7 @@ class SaveController extends Controller
             ->addRow(['Seeked forward',  $seekedfA,$seekedfB])
             ->addRow(['Seeked backward',  $seekedbA,$seekedbB]);
 
-        \Lava::ColumnChart('Events', $video_data,[
+        Lava::ColumnChart('Events', $video_data,[
             'title' => 'Events times happened',
             'legend' => [
                 'position' => 'none'
@@ -168,7 +168,7 @@ class SaveController extends Controller
 
         //------------------other chart
 
-        $video_data2  = \Lava::DataTable();
+        $video_data2  = Lava::DataTable();
         $video_data2->addNumberColumn('Progress %');
         $video_data2->addNumberColumn('Played Second '.$username1);
 
@@ -177,7 +177,7 @@ class SaveController extends Controller
             $video_data2->addRow([$p->video_progress,$p->count]);
             }
 
-        \Lava::ScatterChart('Progress of '.$username1.' on Played Seconds', $video_data2,[
+        Lava::ScatterChart('Progress of '.$username1.' on Played Seconds', $video_data2,[
             'hAxis' => [
                 'title' => 'Progress %'
             ],
@@ -192,7 +192,7 @@ class SaveController extends Controller
             ]
         ]);
         //------------------other chart similar
-        $video_data3  = \Lava::DataTable();
+        $video_data3  = Lava::DataTable();
         $video_data3->addNumberColumn('Progress %');
         $video_data3->addNumberColumn('Played Second '.$username2);
 
@@ -200,7 +200,7 @@ class SaveController extends Controller
             $video_data3->addRow([$p->video_progress,$p->count]);
         }
 
-        \Lava::ScatterChart('Progress of '.$username2.' on Played Seconds', $video_data3,[
+        Lava::ScatterChart('Progress of '.$username2.' on Played Seconds', $video_data3,[
             'hAxis' => [
                 'title' => 'Progress %'
             ],
@@ -251,8 +251,8 @@ class SaveController extends Controller
         $playedsecA5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration,video_user'))->groupBy('video_duration','video_user','video_progress5')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
 
 
-        $lava = new Lavacharts;
-        $video_data  = \Lava::DataTable();
+
+        $video_data  = Lava::DataTable();
         $video_data->addStringColumn('Events')
             ->addNumberColumn('Count ' .$username)
             ->addRow(['Play',  $playA])
@@ -265,7 +265,7 @@ class SaveController extends Controller
 
 
 
-        \Lava::ColumnChart('Events', $video_data,[
+        Lava::ColumnChart('Events', $video_data,[
             'title' => 'Events times happened',
             'legend' => [
                 'position' => 'none'
@@ -280,7 +280,7 @@ class SaveController extends Controller
 
         //------------------other chart
 
-        $video_data2  = \Lava::DataTable();
+        $video_data2  = Lava::DataTable();
         $video_data2->addNumberColumn('Progress %');
         $video_data2->addNumberColumn('Played Second '. $username);
 
@@ -290,7 +290,7 @@ class SaveController extends Controller
         }
 
 
-        \Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
+        Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
             'hAxis' => [
                 'title' => 'Progress %'
             ],
@@ -342,8 +342,8 @@ class SaveController extends Controller
         $playedsecA5=DB::table('info_videos')->select(DB::raw('DISTINCT video_progress5,COUNT(*) as count,video_duration,video_user'))->groupBy('video_duration','video_user','video_progress5')->where('video_event','=','video second played')->where('video_user','=', $username)->where('video_name',$video)->get();
 
 
-        $lava = new Lavacharts;
-        $video_data  = \Lava::DataTable();
+
+        $video_data  = Lava::DataTable();
         $video_data->addStringColumn('Events')
             ->addNumberColumn('Count ' .$username)
             ->addRow(['Play',  $playA])
@@ -356,7 +356,7 @@ class SaveController extends Controller
 
 
 
-        \Lava::ColumnChart('Events', $video_data,[
+        Lava::ColumnChart('Events', $video_data,[
             'title' => 'Events times happened',
             'legend' => [
                 'position' => 'none'
@@ -371,7 +371,7 @@ class SaveController extends Controller
 
         //------------------other chart
 
-        $video_data2  = \Lava::DataTable();
+        $video_data2  = Lava::DataTable();
         $video_data2->addNumberColumn('Progress %');
         $video_data2->addNumberColumn('Played Second '. $username);
 
@@ -381,7 +381,7 @@ class SaveController extends Controller
         }
 
 
-        \Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
+        Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
             'hAxis' => [
                 'title' => 'Progress %'
             ],
@@ -428,8 +428,7 @@ class SaveController extends Controller
         $rangeVid=DB::table('info_videos')->select('video_duration')->where('video_name','=', $username)->first();
 
 
-        $lava = new Lavacharts;
-        $video_data  = \Lava::DataTable();
+        $video_data  = Lava::DataTable();
         $video_data->addStringColumn('Events')
             ->addNumberColumn('Count ' .$username)
             ->addRow(['Play',  $playA])
@@ -442,7 +441,7 @@ class SaveController extends Controller
 
 
 
-        \Lava::ColumnChart('Events', $video_data,[
+        Lava::ColumnChart('Events', $video_data,[
             'title' => 'Events times happened',
             'legend' => [
                 'position' => 'none'
@@ -457,7 +456,7 @@ class SaveController extends Controller
 
         //------------------other chart
 
-        $video_data2  = \Lava::DataTable();
+        $video_data2  = Lava::DataTable();
         $video_data2->addNumberColumn('Progress %');
         $video_data2->addNumberColumn('Played Second '. $username);
 
@@ -467,7 +466,7 @@ class SaveController extends Controller
         }
 
 
-        \Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
+        Lava::ScatterChart('Progress of '. $username.' on Played Seconds', $video_data2,[
             'hAxis' => [
                 'title' => 'Progress %',
             ],
